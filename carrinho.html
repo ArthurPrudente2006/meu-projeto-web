@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Carrinho</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #conteudo {
+            border: 1px solid black;
+            border-radius: 4px;
+            padding: 10px;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container mt-5">
+    <div id="conteudo" class="container mt-5">
         <h2>Carrinho de Compras</h2>
         <table class="table">
             <thead>
@@ -23,13 +32,12 @@
         <h4>
             Total: R$ <span id="total-carrinho">0,00</span>
         </h4>
-    </div>
-    <a href="index.html">
-        <button id="voltar" class="btn btn-primary">
+        <a href="index.html">
+            <button id="voltar" class="btn btn-primary">
                 Voltar ao menu principal
             </button>
-    </a>
-
+        </a>
+    </div>
     <script src="carrinho.js"></script>
 
 </body>
