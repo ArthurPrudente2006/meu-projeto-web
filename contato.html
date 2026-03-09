@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <title>Meu projeto Web</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         body {
             margin: 10px;
@@ -15,56 +16,72 @@
         button {
             margin-top: 10px;
         }
+
+        #formulario {
+            border: 1px solid black;
+            border-radius: 4px;
+            padding: 10px;
+        }
     </style>
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Meu Site</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="produtos.html">Produtos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="contato.html">Contato</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="carrinho.html">Carrinho</a>
-                    </li>
-                    </li>
 
-                </ul>
+            <ul class="navbar-nav me-auto">
 
-            </div>
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="produtos.html">Produtos</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="contato.html">Contato</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="carrinho.html">Carrinho</a>
+                </li>
+
+            </ul>
         </div>
     </nav>
 
-    <form>
-        <div class="mt-05">
-            <label for="exampleInputEmail1" class="form-label">Nome</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        </div>
-        <div class="mt-05">
-            <label for="exampleInputPassword1" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="mt-05">
-            <label for="exampleInputPassword1" class="form-label">Texto</label>
-            <input type="textarea" class="form-control" id="exampleInputPassword1">
-        </div>
 
-        <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
+    <div id="formulario" class="container mt-4">
+
+        <form id="form-contato">
+
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Mensagem</label>
+                <textarea class="form-control" id="mensagem"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+
+        </form>
+
+        <div id="mensagem-retorno"></div>
+
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 

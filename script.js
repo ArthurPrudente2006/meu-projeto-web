@@ -122,3 +122,65 @@ async function carregarDepoimentos() {
 }
 
 carregarDepoimentos();
+document.addEventListener("DOMContentLoaded", function () {
+
+  const formulario = document.getElementById("form-contato");
+
+  if (!formulario) return;
+
+  formulario.addEventListener("submit", async function (event) {
+
+    event.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const email = document.getElementById("email").value;
+    const mensagem = document.getElementById("mensagem").value;
+
+    const dados = {
+      nome: nome,
+      email: email,
+      mensagem: mensagem
+    };
+
+    try {
+      const resposta = await fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(dados)
+      });
+
+      const areaMensagem = document.getElementById("mensagem-retorno");
+
+      if (resposta.status === 201) {
+
+        areaMensagem.innerHTML = `
+        <div class="alert alert-success mt-3">
+          Mensagem enviada com sucesso!
+        </div>
+        `;
+
+        formulario.reset();
+
+      } else {
+
+        areaMensagem.innerHTML = `
+        <div class="alert alert-danger mt-3">
+          Erro ao enviar a mensagem.
+        </div>
+        `;
+
+      }
+
+    } catch (erro) {
+
+      document.getElementById("mensagem-retorno").innerHTML = `
+      <div class="alert alert-danger mt-3">
+        Falha na conexão com o servidor.
+      </div>
+      `;
+
+    }
+  });
+});
