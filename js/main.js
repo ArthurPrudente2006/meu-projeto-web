@@ -3,7 +3,6 @@ import { renderizarDepoimentos, mostrarAlerta } from "./ui.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
 
-    // CALCULAR TOTAL
     function calcularTotal() {
 
         const checkboxes = document.querySelectorAll('.item-produto');
@@ -45,7 +44,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
 
-    // ADICIONAR AO CARRINHO
     const btnCarrinho = document.getElementById('btn-carrinho');
 
     if (btnCarrinho) {
@@ -91,7 +89,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
 
-    // CARREGAR DEPOIMENTOS
     try {
 
         const depoimentos = await buscarDepoimentos();
@@ -105,7 +102,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
 
-    // FORMULÁRIO DE CONTATO
     const formulario = document.getElementById("form-contato");
 
     if (formulario) {
@@ -147,3 +143,36 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
 });
+
+const cepInput = document.getElementById("cep")
+
+cepInput.addEventListener("blur", buscarCep)
+
+function buscarCep() {
+
+    let cep = cepInput.value.replace(/\D/g, "")
+
+    if (cep.length !== 8) {
+        alert("CEP inválido")
+        return
+    }
+
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(resposta => resposta.json())
+        .then(dados => {
+
+            if (dados.erro) {
+                alert("CEP não encontrado")
+                return
+            }
+
+            document.getElementById("rua").value = dados.logradouro
+            document.getElementById("bairro").value = dados.bairro
+            document.getElementById("cidade").value = dados.localidade
+            document.getElementById("estado").value = dados.uf
+
+        })
+        .catch(() => {
+            alert("Erro ao buscar o CEP")
+        })
+}

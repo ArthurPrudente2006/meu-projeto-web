@@ -52,37 +52,56 @@
             </ul>
         </div>
     </nav>
+    <form id="form-contato">
 
+        <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome">
+        </div>
 
-    <div id="formulario" class="container mt-4">
+        <div class="mb-3">
+            <label class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="email">
+        </div>
 
-        <form id="form-contato">
-
-            <div class="mb-3">
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control" id="nome">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">CEP</label>
+                <input type="text" class="form-control" id="cep">
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">E-mail</label>
-                <input type="email" class="form-control" id="email">
+            <div class="col-md-8 mb-3">
+                <label class="form-label">Rua</label>
+                <input type="text" class="form-control" id="rua">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Bairro</label>
+                <input type="text" class="form-control" id="bairro">
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Mensagem</label>
-                <textarea class="form-control" id="mensagem"></textarea>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Cidade</label>
+                <input type="text" class="form-control" id="cidade">
             </div>
 
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Estado</label>
+                <input type="text" class="form-control" id="estado">
+            </div>
+        </div>
 
-        </form>
+        <div class="mb-3">
+            <label class="form-label">Mensagem</label>
+            <textarea class="form-control" id="mensagem"></textarea>
+        </div>
 
-        <div id="mensagem-retorno"></div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
 
-    </div>
-
+    </form>
     <script type="module" src="js/main.js"></script>
-
 </body>
 
 </html>
