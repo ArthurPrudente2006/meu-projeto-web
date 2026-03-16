@@ -1,6 +1,8 @@
 body {
     background: #f4f6fb;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
 }
 
 .navbar {
@@ -85,3 +87,4 @@ body {
     color: #3b5bdb;
     font-weight: 700;
 }
+

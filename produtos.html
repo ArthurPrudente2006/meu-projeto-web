@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -12,6 +12,7 @@
         div.card-group {
             width: 800px;
             margin: auto;
+            margin-top: 20px;
         }
 
         .card-img-top {
@@ -25,7 +26,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg bg-body border-bottom">
         <div class="container-fluid">
 
             <a class="navbar-brand" href="#">Meu Site</a>
@@ -48,7 +49,9 @@
                     <a class="nav-link active" href="carrinho.html">Carrinho</a>
                 </li>
             </ul>
-
+            <button class="btn btn-outline-secondary" id="toggle-tema">
+                Alternar Tema
+            </button>
         </div>
     </nav>
 
@@ -137,7 +140,7 @@
 
         <div class="alert alert-info text-center">
 
-            <h4>
+            <h4 class="fw-bold text-success">
                 Valor Total: R$ <span id="valor-total">0,00</span>
             </h4>
 
@@ -171,7 +174,9 @@
 
                     <p id="modalDescricao"></p>
 
-                    <p><strong>Preço: R$ <span id="modalPreco"></span></strong></p>
+                    <p class="fs-4 fw-bold text-success">
+                        R$ <span id="modalPreco"></span>
+                    </p>
 
                 </div>
 

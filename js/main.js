@@ -1,5 +1,6 @@
 import { buscarDepoimentos, enviarContato } from "./api.js";
 import { renderizarDepoimentos, mostrarAlerta } from "./ui.js";
+import "./ui.js"
 
 document.addEventListener("DOMContentLoaded", async function () {
 
@@ -176,3 +177,4 @@ function buscarCep() {
             alert("Erro ao buscar o CEP")
         })
 }
+
