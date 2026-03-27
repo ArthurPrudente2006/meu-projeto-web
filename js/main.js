@@ -1,180 +1,138 @@
 import { buscarDepoimentos, enviarContato } from "./api.js";
 import { renderizarDepoimentos, mostrarAlerta } from "./ui.js";
-import "./ui.js"
+import "./ui.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
+  function calcularTotal() {
+    const checkboxes = document.querySelectorAll(".item-produto");
+    const quantidades = document.querySelectorAll(".qtd-produto");
 
-    function calcularTotal() {
+    let total = 0;
 
-        const checkboxes = document.querySelectorAll('.item-produto');
-        const quantidades = document.querySelectorAll('.qtd-produto');
+    checkboxes.forEach((checkbox, index) => {
+      if (checkbox.checked) {
+        const preco = parseFloat(checkbox.value) || 0;
+        const quantidade = parseInt(quantidades[index].value) || 0;
 
-        let total = 0;
+        total += preco * quantidade;
+      }
+    });
 
-        checkboxes.forEach((checkbox, index) => {
+    const totalElemento = document.getElementById("valor-total");
 
-            if (checkbox.checked) {
+    if (totalElemento) {
+      totalElemento.textContent = new Intl.NumberFormat("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(total);
+    }
+  }
 
-                const preco = parseFloat(checkbox.value) || 0;
-                const quantidade = parseInt(quantidades[index].value) || 0;
+  document
+    .querySelectorAll(".item-produto, .qtd-produto")
+    .forEach((element) => {
+      element.addEventListener("change", calcularTotal);
+    });
 
-                total += preco * quantidade;
+  const btnCarrinho = document.getElementById("btn-carrinho");
 
-            }
+  if (btnCarrinho) {
+    btnCarrinho.addEventListener("click", function () {
+      const checkboxes = document.querySelectorAll(".item-produto");
+      const quantidades = document.querySelectorAll(".qtd-produto");
+      const titulos = document.querySelectorAll(".card-title");
 
-        });
+      let carrinho = [];
 
-        const totalElemento = document.getElementById('valor-total');
+      checkboxes.forEach((checkbox, index) => {
+        if (checkbox.checked) {
+          const preco = parseFloat(checkbox.value) || 0;
+          const quantidade = parseInt(quantidades[index].value) || 0;
 
-        if (totalElemento) {
-
-            totalElemento.textContent =
-                new Intl.NumberFormat('pt-BR', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                }).format(total);
-
+          carrinho.push({
+            nome: titulos[index].textContent,
+            preco: preco,
+            quantidade: quantidade,
+          });
         }
+      });
 
-    }
+      if (carrinho.length === 0) {
+        alert("Selecione pelo menos um produto!");
+        return;
+      }
 
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
 
-    document.querySelectorAll('.item-produto, .qtd-produto')
-        .forEach(element => {
-            element.addEventListener('change', calcularTotal);
-        });
+      alert("Produtos adicionados ao carrinho!");
 
+      window.location.href = "carrinho.html";
+    });
+  }
 
-    const btnCarrinho = document.getElementById('btn-carrinho');
+  try {
+    const depoimentos = await buscarDepoimentos();
 
-    if (btnCarrinho) {
+    renderizarDepoimentos(depoimentos);
+  } catch (erro) {
+    console.error("Erro ao carregar depoimentos");
+  }
 
-        btnCarrinho.addEventListener('click', function () {
+  const formulario = document.getElementById("form-contato");
 
-            const checkboxes = document.querySelectorAll('.item-produto');
-            const quantidades = document.querySelectorAll('.qtd-produto');
-            const titulos = document.querySelectorAll('.card-title');
+  if (formulario) {
+    formulario.addEventListener("submit", async function (event) {
+      event.preventDefault();
 
-            let carrinho = [];
+      const dados = {
+        nome: document.getElementById("nome").value,
+        email: document.getElementById("email").value,
+        mensagem: document.getElementById("mensagem").value,
+      };
 
-            checkboxes.forEach((checkbox, index) => {
+      try {
+        const resposta = await enviarContato(dados);
 
-                if (checkbox.checked) {
+        if (resposta.status === 201) {
+          mostrarAlerta("success", "Mensagem enviada com sucesso!");
 
-                    const preco = parseFloat(checkbox.value) || 0;
-                    const quantidade = parseInt(quantidades[index].value) || 0;
-
-                    carrinho.push({
-                        nome: titulos[index].textContent,
-                        preco: preco,
-                        quantidade: quantidade
-                    });
-
-                }
-
-            });
-
-            if (carrinho.length === 0) {
-                alert("Selecione pelo menos um produto!");
-                return;
-            }
-
-            localStorage.setItem('carrinho', JSON.stringify(carrinho));
-
-            alert("Produtos adicionados ao carrinho!");
-
-            window.location.href = "carrinho.html";
-
-        });
-
-    }
-
-
-    try {
-
-        const depoimentos = await buscarDepoimentos();
-
-        renderizarDepoimentos(depoimentos);
-
-    } catch (erro) {
-
-        console.error("Erro ao carregar depoimentos");
-
-    }
-
-
-    const formulario = document.getElementById("form-contato");
-
-    if (formulario) {
-
-        formulario.addEventListener("submit", async function (event) {
-
-            event.preventDefault();
-
-            const dados = {
-                nome: document.getElementById("nome").value,
-                email: document.getElementById("email").value,
-                mensagem: document.getElementById("mensagem").value
-            };
-
-            try {
-
-                const resposta = await enviarContato(dados);
-
-                if (resposta.status === 201) {
-
-                    mostrarAlerta("success", "Mensagem enviada com sucesso!");
-
-                    formulario.reset();
-
-                } else {
-
-                    mostrarAlerta("danger", "Erro ao enviar mensagem.");
-
-                }
-
-            } catch {
-
-                mostrarAlerta("danger", "Falha na conexão com o servidor.");
-
-            }
-
-        });
-
-    }
-
+          formulario.reset();
+        } else {
+          mostrarAlerta("danger", "Erro ao enviar mensagem.");
+        }
+      } catch {
+        mostrarAlerta("danger", "Falha na conexão com o servidor.");
+      }
+    });
+  }
 });
 
-const cepInput = document.getElementById("cep")
+const cepInput = document.getElementById("cep");
 
-cepInput.addEventListener("blur", buscarCep)
+cepInput.addEventListener("blur", buscarCep);
 
 function buscarCep() {
+  let cep = cepInput.value.replace(/\D/g, "");
 
-    let cep = cepInput.value.replace(/\D/g, "")
+  if (cep.length !== 8) {
+    alert("CEP inválido");
+    return;
+  }
 
-    if (cep.length !== 8) {
-        alert("CEP inválido")
-        return
-    }
+  fetch(`https://viacep.com.br/ws/${cep}/json/`)
+    .then((resposta) => resposta.json())
+    .then((dados) => {
+      if (dados.erro) {
+        alert("CEP não encontrado");
+        return;
+      }
 
-    fetch(`https://viacep.com.br/ws/${cep}/json/`)
-        .then(resposta => resposta.json())
-        .then(dados => {
-
-            if (dados.erro) {
-                alert("CEP não encontrado")
-                return
-            }
-
-            document.getElementById("rua").value = dados.logradouro
-            document.getElementById("bairro").value = dados.bairro
-            document.getElementById("cidade").value = dados.localidade
-            document.getElementById("estado").value = dados.uf
-
-        })
-        .catch(() => {
-            alert("Erro ao buscar o CEP")
-        })
+      document.getElementById("rua").value = dados.logradouro;
+      document.getElementById("bairro").value = dados.bairro;
+      document.getElementById("cidade").value = dados.localidade;
+      document.getElementById("estado").value = dados.uf;
+    })
+    .catch(() => {
+      alert("Erro ao buscar o CEP");
+    });
 }
-

@@ -1,53 +1,44 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
+  const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  const lista = document.getElementById("lista-carrinho");
 
-    const lista = document.getElementById('lista-carrinho');
+  let total = 0;
 
-    let total = 0;
+  carrinho.forEach((produto) => {
+    const subtotal = produto.preco * produto.quantidade;
 
-    carrinho.forEach(produto => {
+    total += subtotal;
 
-        const subtotal = produto.preco * produto.quantidade;
-
-        total += subtotal;
-
-        const linha = `
+    const linha = `
 <tr>
 <td>${produto.nome}</td>
-<td>R$ ${produto.preco.toFixed(2).replace('.', ',')}</td>
+<td>R$ ${produto.preco.toFixed(2).replace(".", ",")}</td>
 <td>${produto.quantidade}</td>
-<td>R$ ${subtotal.toFixed(2).replace('.', ',')}</td>
+<td>R$ ${subtotal.toFixed(2).replace(".", ",")}</td>
 </tr>
 `;
 
-        lista.innerHTML += linha;
+    lista.innerHTML += linha;
+  });
 
-    });
-
-    document.getElementById('total-carrinho').textContent =
-        total.toFixed(2).replace('.', ',');
-
+  document.getElementById("total-carrinho").textContent = total
+    .toFixed(2)
+    .replace(".", ",");
 });
 
-
 function limparCarrinho() {
+  localStorage.removeItem("carrinho");
 
-    localStorage.removeItem("carrinho");
+  alert("Carrinho esvaziado!");
 
-    alert("Carrinho esvaziado!");
-
-    location.reload();
-
+  location.reload();
 }
 
-
 function finalizarCompra() {
+  alert("Compra realizada com sucesso!");
 
-    alert("Compra realizada com sucesso!");
+  localStorage.removeItem("carrinho");
 
-    localStorage.removeItem("carrinho");
-
-    window.location.href = "produtos.html";
-
+  window.location.href = "produtos.html";
 }

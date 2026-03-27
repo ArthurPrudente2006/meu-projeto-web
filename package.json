@@ -1,0 +1,29 @@
+{
+  "name": "meu-projeto-web",
+  "version": "1.0.0",
+  "description": "Este projeto é um site desenvolvido com foco em prática de desenvolvimento web, organização de código e aplicação de tecnologias modernas do front-end.",
+  "main": "carrinho.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint",
+    "format": "prettier --write .",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArthurPrudente2006/meu-projeto-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ArthurPrudente2006/meu-projeto-web/issues"
+  },
+  "homepage": "https://github.com/ArthurPrudente2006/meu-projeto-web#readme",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1"
+  }
+}
