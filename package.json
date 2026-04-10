@@ -4,10 +4,11 @@
   "description": "Este projeto é um site desenvolvido com foco em prática de desenvolvimento web, organização de código e aplicação de tecnologias modernas do front-end.",
   "main": "carrinho.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No tests yet\"",
     "lint": "eslint",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "sass": "sass style.scss style.css --watch"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.1",
+    "sass": "^1.99.0"
   }
 }

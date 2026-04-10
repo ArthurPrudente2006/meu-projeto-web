@@ -1,0 +1,31 @@
+@import "variables";
+@import "themes";
+
+body {
+  background: $background;
+  font-family: $font-family;
+  font-style: $font-style;
+  font-weight: $font-weight;
+  color: $font-color;
+}
+
+body {
+  background: var(--bg, $background);
+  color: var(--text, $font-color);
+}
+
+.btn-primary {
+  background: var(--primary, $primary);
+}
+
+@media (max-width: 768px) {
+  .card-group {
+    width: 100%;
+    flex-direction: column;
+    padding: 0 10px;
+  }
+
+  .navbar {
+    padding: 10px;
+  }
+}
